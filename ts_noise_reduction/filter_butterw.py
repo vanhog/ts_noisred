@@ -44,7 +44,7 @@ dt_dats_padded_asDays   = (dt_dats_padded - dt_dats_padded[0]).astype('float')
 
 
 # filter data
-query_list = [27534195]
+query_list = [27540388]
 
 if len(query_list) > 0:
     df_part = df[df['PS_ID'].isin(query_list)]
