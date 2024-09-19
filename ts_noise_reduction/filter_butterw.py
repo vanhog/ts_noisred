@@ -69,7 +69,7 @@ for idx, row in df_part.iterrows():
     print(this_ps_padded)
      
     # butterworth filtering
-    omega_g = 1. / 180
+    omega_g = 1. / 90
     fs = 1. / 6
      
     sos = sg.butter(3, omega_g, 'lp', fs=fs, output='sos')
