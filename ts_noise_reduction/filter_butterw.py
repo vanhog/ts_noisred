@@ -42,12 +42,43 @@ dt_dats_asDays          = (dt_dats - dt_dats[0]).astype('float')
 dt_dats_padded_asDays   = (dt_dats_padded - dt_dats_padded[0]).astype('float')
 
 
-# filter data
-query_list = [27534195, 27534443]
 
-df_part = df[df['PS_ID'].isin(query_list)]
+# filter data
+query_list = [27534195]
+
+if len(query_list) > 0:
+    df_part = df[df['PS_ID'].isin(query_list)]
+else:
+    df_part = df
 
 for idx, row in df_part.iterrows():
-     this_ps = row 
-     this_ts = this_ps[dats]
-     this_mv = this_ps[nodats]
+    this_ps = row 
+    this_ts = this_ps[dats]
+    this_mv = this_ps[nodats]
+     
+    # allocate new lists
+    this_ts_padded = [this_ts[dats[0]]]
+    
+    # fill in missing values
+    this_ts_padded = np.interp(dt_dats_padded_asDays, dt_dats_asDays, this_ts.astype('float'))
+    # print(np.max(this_ts_padded), np.min(this_ts_padded))
+    n_max = np.max(this_ts_padded)
+    n_min = np.min(this_ts_padded)
+     
+    this_ps_padded = [*this_mv, *this_ts_padded]
+    print(this_ps_padded)
+     
+    # butterworth filtering
+    omega_g = 1. / 90
+    fs = 1. / 6
+     
+    sos = sg.butter(3, omega_g, 'lp', fs=fs, output='sos')
+    filtered = sg.sosfiltfilt(sos, this_ts_padded)
+     
+    plt.plot(dt_dats_padded, this_ts_padded, '-o', color='lime')
+    plt.plot(dt_dats, this_ts, 'o')
+    plt.plot(dt_dats_padded, filtered, 'k')
+    plt.show()    
+         
+     
+print('I am done')
