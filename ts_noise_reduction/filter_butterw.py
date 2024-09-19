@@ -13,6 +13,15 @@ import sentinel1helper as sh
 from sqlalchemy.engine import row
 from _sqlite3 import Row
 
+# TEMPERATURE PART##################################
+in_climate = '/media/hog/fringe1/sc/data_sc/Meteo/Temp_Meteosat/Holtenaa-20150401-20211230.csv'
+df_climate = pd.read_csv(in_climate)
+print(df_climate.head())
+climate_dt_dats = [datetime64(i) for i in df_climate['date']]
+print(climate_dt_dats)
+tavg = df_climate['tavg'].astype('float')
+# TEMPERATURE PART END #############################
+
 
 in_file = '/media/hog/fringe1/dev/data/testn.csv'
 in_file = '/media/hog/fringe1/dev/data/tl5_l2b_044_02_0001-0200.csv'
@@ -69,7 +78,7 @@ for idx, row in df_part.iterrows():
     print(this_ps_padded)
      
     # butterworth filtering
-    omega_g = 1. / 90
+    omega_g = 1. / 180
     fs = 1. / 6
      
     sos = sg.butter(3, omega_g, 'lp', fs=fs, output='sos')
@@ -78,6 +87,7 @@ for idx, row in df_part.iterrows():
     plt.plot(dt_dats_padded, this_ts_padded, '-o', color='lime')
     plt.plot(dt_dats, this_ts, 'o')
     plt.plot(dt_dats_padded, filtered, 'k')
+    plt.plot(climate_dt_dats, tavg)
     plt.show()    
          
      
