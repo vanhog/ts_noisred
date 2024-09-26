@@ -10,8 +10,8 @@ from scipy import signal as sg
 import geopandas as gpd
 
 import sentinel1helper as sh
-from sqlalchemy.engine import row
-from _sqlite3 import Row
+#from sqlalchemy.engine import row
+#from _sqlite3 import Row
 
 
 in_file = '/media/hog/fringe1/dev/data/testn.csv'
@@ -45,6 +45,7 @@ dt_dats_padded_asDays   = (dt_dats_padded - dt_dats_padded[0]).astype('float')
 
 # filter data
 query_list = [27540388]
+#query_list = [27534195]
 
 if len(query_list) > 0:
     df_part = df[df['PS_ID'].isin(query_list)]
