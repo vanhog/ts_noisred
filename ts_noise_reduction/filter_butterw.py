@@ -15,7 +15,7 @@ import sentinel1helper as sh
 
 
 in_file = '/media/hog/fringe1/dev/data/testn.csv'
-in_file = '/media/hog/fringe1/dev/data/tl5_l2b_044_02_0001-0200.csv'
+in_file = '/media/data/dev/testdata/tl5_l2b_044_02_0001-0200.csv'
 #in_file = '/media/hog/fringe1/sc/MSCDATA/Roenne-Overview/aoi_msc_gpk/tl5_l2b_aoi_msc_gpkg.gpkg'
 #in_layer = 'tl5_a_044_01_mscaoi'
 #in_file = '/media/nas01/hog/sc/sc_data/BBD_TL5/schleswig-holstein/l2b_schleswig-holstein_clipped.gpkg'
